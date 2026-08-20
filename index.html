@@ -7,145 +7,148 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap');
   :root {
-    --navy: #1B2A4A; --navy-mid: #243559; --accent: #2E6BE6; --accent-light: #EBF1FD;
-    --gold: #C49A3C; --green: #16A34A; --red: #DC2626; --amber: #D97706;
-    --bg: #F7F8FC; --surface: #FFFFFF; --border: #E2E8F0; --text: #1E293B; --muted: #64748B;
+    --navy:#1B2A4A;--navy-mid:#243559;--accent:#2E6BE6;--accent-light:#EBF1FD;
+    --gold:#C49A3C;--green:#16A34A;--red:#DC2626;--amber:#D97706;
+    --bg:#F7F8FC;--surface:#FFFFFF;--border:#E2E8F0;--text:#1E293B;--muted:#64748B;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .nav { background: var(--navy); display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 56px; position: sticky; top: 0; z-index: 100; }
-  .nav-brand { color: #fff; font-size: .85rem; font-weight: 600; letter-spacing: .04em; }
-  .nav-code { color: var(--gold); font-size: .75rem; font-weight: 500; letter-spacing: .08em; }
-  .nav-tabs { display: flex; gap: 4px; }
-  .tab-btn { background: transparent; border: none; color: rgba(255,255,255,.6);
-    padding: 6px 14px; border-radius: 6px; font-size: .8rem; font-family: inherit;
-    cursor: pointer; transition: all .2s; }
-  .tab-btn.active, .tab-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
-  .view { display: none; }
-  .view.active { display: block; }
-  .form-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-    padding: 3rem 2rem 2.5rem; text-align: center; }
-  .form-hero h1 { font-family: 'DM Serif Display', serif; color: #fff; font-size: 1.8rem; line-height: 1.2; }
-  .form-hero p { color: rgba(255,255,255,.6); font-size: .85rem; margin-top: .5rem; }
-  .badge { display: inline-block; background: var(--gold); color: #fff; font-size: .7rem;
-    font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: .06em; margin-bottom: 1rem; }
-  .form-wrap { max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
-  .card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border);
-    padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-  .card-label { font-size: .7rem; font-weight: 700; color: var(--accent);
-    letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1rem; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-  .field label { font-size: .8rem; font-weight: 500; color: var(--muted); display: block; margin-bottom: 4px; }
-  .field label .req { color: var(--red); }
-  .field input, .field select {
-    width: 100%; padding: 8px 12px; border: 1px solid var(--border);
-    border-radius: 8px; font-family: inherit; font-size: .875rem; color: var(--text);
-    background: #fff; transition: border-color .2s, box-shadow .2s; }
-  .field input:focus, .field select:focus { outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(46,107,230,.12); }
-  .field input.error, .field select.error { border-color: var(--red); }
-  .section-title { font-weight: 600; font-size: .95rem; color: var(--navy); margin-bottom: .25rem; }
-  .section-subtitle { font-size: .8rem; color: var(--muted); margin-bottom: 1.25rem; }
-  .scale-legend { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-  .scale-legend span { font-size: .72rem; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
-  .leg-1 { background: #FEE2E2; color: #991B1B; }
-  .leg-2 { background: #FEF3C7; color: #92400E; }
-  .leg-3 { background: #E0F2FE; color: #075985; }
-  .leg-4 { background: #DCFCE7; color: #166534; }
-  .leg-5 { background: #EDE9FE; color: #4C1D95; }
-  .criteria-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
-  .criteria-table thead th { font-size: .72rem; font-weight: 600; color: var(--muted);
-    padding: 0 8px 6px; text-align: center; }
-  .criteria-table thead th.label-col { text-align: left; }
-  .criteria-row td { padding: 10px 8px; background: var(--bg); }
-  .criteria-row td:first-child { border-radius: 8px 0 0 8px; padding-left: 14px;
-    font-size: .875rem; font-weight: 500; }
-  .criteria-row td:last-child { border-radius: 0 8px 8px 0; }
-  .star-cell { text-align: center; }
-  .radio-star { appearance: none; -webkit-appearance: none; width: 32px; height: 32px;
-    border-radius: 50%; border: 2px solid var(--border); cursor: pointer; transition: all .15s;
-    background: #fff; display: inline-flex; align-items: center; justify-content: center;
-    font-size: .75rem; font-weight: 700; font-family: inherit; color: var(--muted);
-    vertical-align: middle; position: relative; }
-  .radio-star::after { content: attr(data-val); position: absolute; }
-  .radio-star:checked { border-color: transparent; color: #fff; }
-  .radio-star[value="1"]:checked { background: var(--red); }
-  .radio-star[value="2"]:checked { background: var(--amber); }
-  .radio-star[value="3"]:checked { background: #3B82F6; }
-  .radio-star[value="4"]:checked { background: var(--green); }
-  .radio-star[value="5"]:checked { background: #7C3AED; }
-  .radio-star:hover:not(:checked) { border-color: var(--accent); background: var(--accent-light); }
-  .field textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border);
-    border-radius: 8px; font-family: inherit; font-size: .875rem; color: var(--text);
-    resize: vertical; min-height: 80px; transition: border-color .2s, box-shadow .2s; }
-  .field textarea:focus { outline: none; border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(46,107,230,.12); }
-  .btn-submit { width: 100%; padding: 14px; background: var(--accent); color: #fff;
-    border: none; border-radius: 10px; font-family: inherit; font-size: 1rem;
-    font-weight: 600; cursor: pointer; transition: background .2s, transform .1s; margin-top: .5rem; }
-  .btn-submit:hover { background: #1d56cc; }
-  .btn-submit:disabled { background: var(--muted); cursor: not-allowed; }
-  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
-    color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: .9rem;
-    opacity: 0; transition: all .4s; pointer-events: none; z-index: 999; }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .toast.success { background: var(--green); }
-  .toast.error { background: var(--red); }
-  .results-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-  .results-header { display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-  .results-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--navy); }
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem; margin-bottom: 1.5rem; }
-  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 1.25rem 1rem; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-  .kpi-val { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); }
-  .kpi-label { font-size: .75rem; color: var(--muted); margin-top: 4px; }
-  .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-  .chart-card h3 { font-size: .85rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem; }
-  .bar-chart { display: flex; flex-direction: column; gap: 10px; }
-  .bar-row { display: flex; align-items: center; gap: 10px; }
-  .bar-label { font-size: .75rem; color: var(--muted); width: 90px; text-align: right; flex-shrink: 0; line-height: 1.3; }
-  .bar-track { flex: 1; height: 22px; background: var(--bg); border-radius: 6px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 6px; transition: width .6s ease; display: flex;
-    align-items: center; justify-content: flex-end; padding-right: 6px; }
-  .bar-fill span { font-size: .7rem; font-weight: 700; color: #fff; }
-  .criteria-results { display: flex; flex-direction: column; gap: 10px; }
-  .cr-row { display: flex; align-items: center; gap: 10px; }
-  .cr-name { font-size: .8rem; color: var(--text); flex: 1; }
-  .cr-score { font-size: .9rem; font-weight: 700; min-width: 36px; text-align: center;
-    padding: 2px 8px; border-radius: 20px; }
-  .score-low { background: #FEE2E2; color: #991B1B; }
-  .score-mid { background: #FEF3C7; color: #92400E; }
-  .score-ok { background: #DCFCE7; color: #166534; }
-  .score-great { background: #EDE9FE; color: #4C1D95; }
-  .responses-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); margin-top: 1.25rem; }
-  .responses-card h3 { font-size: .85rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem; }
-  .resp-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
-  .resp-table th { text-align: left; padding: 6px 10px; background: var(--bg);
-    font-weight: 600; color: var(--muted); font-size: .72rem; border-bottom: 1px solid var(--border); }
-  .resp-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .resp-table tr:last-child td { border: none; }
-  .chip { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: .7rem; font-weight: 600; }
-  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
-  .empty-state .icon { font-size: 2.5rem; margin-bottom: .75rem; }
-  .btn-export { padding: 8px 16px; background: var(--navy); color: #fff; border: none;
-    border-radius: 8px; font-family: inherit; font-size: .8rem; font-weight: 600;
-    cursor: pointer; transition: background .2s; }
-  .btn-export:hover { background: var(--navy-mid); }
-  .full-width { grid-column: 1 / -1; }
-  .loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 200;
-    display: flex; align-items: center; justify-content: center; display: none; }
-  .loading-overlay.show { display: flex; }
-  .loading-box { background: #fff; border-radius: 12px; padding: 2rem 3rem; text-align: center; }
-  .spinner { width: 36px; height: 36px; border: 3px solid var(--border);
-    border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 1rem; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @media (max-width: 600px) { .results-grid { grid-template-columns: 1fr; } .field-row { grid-template-columns: 1fr; } }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  .nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;
+    padding:0 2rem;height:56px;position:sticky;top:0;z-index:100;}
+  .nav-brand{color:#fff;font-size:.85rem;font-weight:600;letter-spacing:.04em;}
+  .nav-code{color:var(--gold);font-size:.75rem;font-weight:500;letter-spacing:.08em;}
+  .nav-tabs{display:flex;gap:4px;}
+  .tab-btn{background:transparent;border:none;color:rgba(255,255,255,.6);
+    padding:6px 14px;border-radius:6px;font-size:.8rem;font-family:inherit;cursor:pointer;transition:all .2s;}
+  .tab-btn.active,.tab-btn:hover{background:rgba(255,255,255,.12);color:#fff;}
+  .view{display:none;}.view.active{display:block;}
+  .form-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
+    padding:3rem 2rem 2.5rem;text-align:center;}
+  .form-hero h1{font-family:'DM Serif Display',serif;color:#fff;font-size:1.8rem;line-height:1.2;}
+  .form-hero p{color:rgba(255,255,255,.6);font-size:.85rem;margin-top:.5rem;}
+  .badge{display:inline-block;background:var(--gold);color:#fff;font-size:.7rem;
+    font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;margin-bottom:1rem;}
+  .form-wrap{max-width:720px;margin:2rem auto;padding:0 1.5rem 4rem;}
+  .card{background:var(--surface);border-radius:12px;border:1px solid var(--border);
+    padding:1.5rem;margin-bottom:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  .card-label{font-size:.7rem;font-weight:700;color:var(--accent);
+    letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+  .field label{font-size:.8rem;font-weight:500;color:var(--muted);display:block;margin-bottom:4px;}
+  .field label .req{color:var(--red);}
+  .field input,.field select{width:100%;padding:8px 12px;border:1px solid var(--border);
+    border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text);
+    background:#fff;transition:border-color .2s,box-shadow .2s;}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(46,107,230,.12);}
+  .field input.error,.field select.error{border-color:var(--red);}
+  .section-title{font-weight:600;font-size:.95rem;color:var(--navy);margin-bottom:.25rem;}
+  .section-subtitle{font-size:.8rem;color:var(--muted);margin-bottom:1.25rem;}
+  .scale-legend{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
+  .scale-legend span{font-size:.72rem;padding:3px 8px;border-radius:20px;font-weight:500;}
+  .leg-1{background:#FEE2E2;color:#991B1B;}.leg-2{background:#FEF3C7;color:#92400E;}
+  .leg-3{background:#E0F2FE;color:#075985;}.leg-4{background:#DCFCE7;color:#166534;}
+  .leg-5{background:#EDE9FE;color:#4C1D95;}
+  .criteria-table{width:100%;border-collapse:separate;border-spacing:0 6px;}
+  .criteria-table thead th{font-size:.72rem;font-weight:600;color:var(--muted);
+    padding:0 8px 6px;text-align:center;}
+  .criteria-table thead th.label-col{text-align:left;}
+  .criteria-row td{padding:10px 8px;background:var(--bg);}
+  .criteria-row td:first-child{border-radius:8px 0 0 8px;padding-left:14px;font-size:.875rem;font-weight:500;}
+  .criteria-row td:last-child{border-radius:0 8px 8px 0;}
+  .star-cell{text-align:center;}
+  .radio-star{appearance:none;-webkit-appearance:none;width:32px;height:32px;
+    border-radius:50%;border:2px solid var(--border);cursor:pointer;transition:all .15s;
+    background:#fff;display:inline-flex;align-items:center;justify-content:center;
+    font-size:.75rem;font-weight:700;font-family:inherit;color:var(--muted);
+    vertical-align:middle;position:relative;}
+  .radio-star::after{content:attr(data-val);position:absolute;}
+  .radio-star:checked{border-color:transparent;color:#fff;}
+  .radio-star[value="1"]:checked{background:var(--red);}
+  .radio-star[value="2"]:checked{background:var(--amber);}
+  .radio-star[value="3"]:checked{background:#3B82F6;}
+  .radio-star[value="4"]:checked{background:var(--green);}
+  .radio-star[value="5"]:checked{background:#7C3AED;}
+  .radio-star:hover:not(:checked){border-color:var(--accent);background:var(--accent-light);}
+  .field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);
+    border-radius:8px;font-family:inherit;font-size:.875rem;color:var(--text);
+    resize:vertical;min-height:80px;transition:border-color .2s,box-shadow .2s;}
+  .field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,107,230,.12);}
+  .btn-submit{width:100%;padding:14px;background:var(--accent);color:#fff;
+    border:none;border-radius:10px;font-family:inherit;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:background .2s;margin-top:.5rem;}
+  .btn-submit:hover{background:#1d56cc;}
+  .btn-submit:disabled{background:var(--muted);cursor:not-allowed;}
+
+  /* PANTALLA DE GRACIAS */
+  .thanks-screen{display:none;max-width:520px;margin:4rem auto;text-align:center;padding:0 1.5rem;}
+  .thanks-screen.show{display:block;}
+  .thanks-icon{font-size:4rem;margin-bottom:1rem;}
+  .thanks-screen h2{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--navy);margin-bottom:.75rem;}
+  .thanks-screen p{color:var(--muted);font-size:.95rem;line-height:1.6;margin-bottom:2rem;}
+  .btn-nueva{display:inline-block;padding:12px 28px;background:var(--navy);color:#fff;
+    border:none;border-radius:10px;font-family:inherit;font-size:.9rem;font-weight:600;
+    cursor:pointer;transition:background .2s;}
+  .btn-nueva:hover{background:var(--navy-mid);}
+
+  /* RESULTADOS */
+  .pin-screen{max-width:360px;margin:4rem auto;padding:0 1.5rem;text-align:center;}
+  .pin-screen h2{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:.5rem;}
+  .pin-screen p{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem;}
+  .pin-input{width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;
+    font-family:inherit;font-size:1.1rem;text-align:center;letter-spacing:.2em;
+    margin-bottom:1rem;transition:border-color .2s;}
+  .pin-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,107,230,.12);}
+  .pin-input.error{border-color:var(--red);}
+  .pin-error{color:var(--red);font-size:.8rem;margin-bottom:.75rem;display:none;}
+  .btn-pin{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;
+    border-radius:8px;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;}
+  .results-wrap{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem;display:none;}
+  .results-wrap.show{display:block;}
+  .results-header{display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+  .results-header h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:1rem;margin-bottom:1.5rem;}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:1.25rem 1rem;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  .kpi-val{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);}
+  .kpi-label{font-size:.75rem;color:var(--muted);margin-top:4px;}
+  .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  .chart-card h3{font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:1rem;}
+  .bar-chart{display:flex;flex-direction:column;gap:10px;}
+  .bar-row{display:flex;align-items:center;gap:10px;}
+  .bar-label{font-size:.75rem;color:var(--muted);width:90px;text-align:right;flex-shrink:0;line-height:1.3;}
+  .bar-track{flex:1;height:22px;background:var(--bg);border-radius:6px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;transition:width .6s ease;display:flex;
+    align-items:center;justify-content:flex-end;padding-right:6px;}
+  .bar-fill span{font-size:.7rem;font-weight:700;color:#fff;}
+  .criteria-results{display:flex;flex-direction:column;gap:10px;}
+  .cr-row{display:flex;align-items:center;gap:10px;}
+  .cr-name{font-size:.8rem;color:var(--text);flex:1;}
+  .cr-score{font-size:.9rem;font-weight:700;min-width:36px;text-align:center;padding:2px 8px;border-radius:20px;}
+  .score-low{background:#FEE2E2;color:#991B1B;}.score-mid{background:#FEF3C7;color:#92400E;}
+  .score-ok{background:#DCFCE7;color:#166534;}.score-great{background:#EDE9FE;color:#4C1D95;}
+  .responses-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:1.25rem;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-top:1.25rem;}
+  .responses-card h3{font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:1rem;}
+  .resp-table{width:100%;border-collapse:collapse;font-size:.8rem;}
+  .resp-table th{text-align:left;padding:6px 10px;background:var(--bg);
+    font-weight:600;color:var(--muted);font-size:.72rem;border-bottom:1px solid var(--border);}
+  .resp-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+  .resp-table tr:last-child td{border:none;}
+  .chip{display:inline-block;padding:2px 8px;border-radius:20px;font-size:.7rem;font-weight:600;}
+  .full-width{grid-column:1/-1;}
+  .btn-export{padding:8px 16px;background:var(--navy);color:#fff;border:none;
+    border-radius:8px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;}
+  .btn-export:hover{background:var(--navy-mid);}
+  .empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
+  .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);
+    border-radius:50%;animation:spin .8s linear infinite;margin:2rem auto;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media(max-width:600px){.results-grid{grid-template-columns:1fr;}.field-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -156,174 +159,189 @@
     <div class="nav-code">COM-FT-007 v2</div>
   </div>
   <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showView('form', this)">📋 Formulario</button>
-    <button class="tab-btn" onclick="showView('results', this)">📊 Resultados</button>
+    <button class="tab-btn active" id="tab-form" onclick="showTab('form')">📋 Formulario</button>
+    <button class="tab-btn" id="tab-results" onclick="showTab('results')">📊 Resultados</button>
   </div>
 </nav>
 
-<!-- FORMULARIO -->
+<!-- ═══ FORMULARIO ═══ -->
 <div id="view-form" class="view active">
-  <div class="form-hero">
-    <div class="badge">ÁREA DE ADMINISTRACIÓN</div>
-    <h1>¡Tu opinión es muy importante!</h1>
-    <p>Encuesta de Satisfacción de Cliente Interno — Medición de la calidad del servicio de soporte</p>
+  <div id="form-content">
+    <div class="form-hero">
+      <div class="badge">ÁREA DE ADMINISTRACIÓN</div>
+      <h1>¡Tu opinión es muy importante!</h1>
+      <p>Encuesta de Satisfacción de Cliente Interno · COM-FT-007 v2</p>
+    </div>
+    <div class="form-wrap">
+      <div class="card">
+        <div class="card-label">Datos del encuestado</div>
+        <div class="field-row">
+          <div class="field">
+            <label>Área encuestada <span class="req">*</span></label>
+            <select id="area">
+              <option value="">— Seleccione un área —</option>
+              <option>Capacitación</option>
+              <option>Respuesta a Emergencias</option>
+              <option>Spill Tech</option>
+              <option>RRHH</option>
+              <option>Sistemas</option>
+              <option>SSOMAC</option>
+              <option>Contabilidad</option>
+              <option>Comercial</option>
+              <option>Administración</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Fecha de la encuesta <span class="req">*</span></label>
+            <input type="date" id="fecha">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Nombre de la persona encuestada <span class="req">*</span></label>
+            <input type="text" id="persona" placeholder="Nombre completo">
+          </div>
+          <div class="field">
+            <label>Cargo</label>
+            <input type="text" id="cargo" placeholder="Ej. Jefe de área">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Pregunta 1</div>
+        <div class="section-title">¿Cuál es su nivel de satisfacción en cuanto a la calidad del servicio recibido?</div>
+        <div class="section-subtitle">Marque del 1 al 5 para cada criterio:</div>
+        <div class="scale-legend">
+          <span class="leg-1">1 · Deficiente</span><span class="leg-2">2 · Regular</span>
+          <span class="leg-3">3 · Aceptable</span><span class="leg-4">4 · Bueno</span>
+          <span class="leg-5">5 · Excelente</span>
+        </div>
+        <table class="criteria-table">
+          <thead><tr><th class="label-col">Criterio</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+          <tbody>
+            <tr class="criteria-row">
+              <td>Beneficio para el desarrollo de su área</td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="1" data-val="1"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="2" data-val="2"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="3" data-val="3"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="4" data-val="4"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="5" data-val="5"></td>
+            </tr>
+            <tr class="criteria-row">
+              <td>Rapidez en el proceso de compra</td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="1" data-val="1"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="2" data-val="2"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="3" data-val="3"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="4" data-val="4"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="5" data-val="5"></td>
+            </tr>
+            <tr class="criteria-row">
+              <td>Tiempo de entrega del servicio / puntualidad</td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="1" data-val="1"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="2" data-val="2"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="3" data-val="3"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="4" data-val="4"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="5" data-val="5"></td>
+            </tr>
+            <tr class="criteria-row">
+              <td>Facilidad para comunicarse con el área de soporte</td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="1" data-val="1"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="2" data-val="2"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="3" data-val="3"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="4" data-val="4"></td>
+              <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="5" data-val="5"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Comentarios</div>
+        <div class="field" style="margin-bottom:1rem">
+          <label>Observaciones generales</label>
+          <textarea id="comentarios" placeholder="Puede dejar cualquier comentario adicional…"></textarea>
+        </div>
+        <div class="field">
+          <label>Para puntajes 1 o 2 — Exponga los motivos o aclaraciones que considere convenientes</label>
+          <textarea id="insatisfaccion" placeholder="Si marcó 1 o 2 en algún criterio, explique aquí los motivos…"></textarea>
+        </div>
+      </div>
+      <button class="btn-submit" id="btn-submit" onclick="submitForm()">Enviar encuesta →</button>
+    </div>
   </div>
-  <div class="form-wrap">
-    <div class="card">
-      <div class="card-label">Datos del encuestado</div>
-      <div class="field-row">
-        <div class="field">
-          <label>Área encuestada <span class="req">*</span></label>
-          <select id="area">
-            <option value="">— Seleccione un área —</option>
-            <option>Capacitación</option>
-            <option>Respuesta a Emergencias</option>
-            <option>Spill Tech</option>
-            <option>RRHH</option>
-            <option>Sistemas</option>
-            <option>SSOMAC</option>
-            <option>Contabilidad</option>
-            <option>Comercial</option>
-            <option>Administración</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Fecha de la encuesta <span class="req">*</span></label>
-          <input type="date" id="fecha">
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Nombre de la persona encuestada <span class="req">*</span></label>
-          <input type="text" id="persona" placeholder="Nombre completo">
-        </div>
-        <div class="field">
-          <label>Cargo</label>
-          <input type="text" id="cargo" placeholder="Ej. Jefe de área">
-        </div>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-label">Pregunta 1</div>
-      <div class="section-title">¿Cuál es su nivel de satisfacción en cuanto a la calidad del servicio recibido?</div>
-      <div class="section-subtitle">Marque del 1 al 5 para cada criterio según la escala:</div>
-      <div class="scale-legend">
-        <span class="leg-1">1 · Deficiente</span>
-        <span class="leg-2">2 · Regular</span>
-        <span class="leg-3">3 · Aceptable</span>
-        <span class="leg-4">4 · Bueno</span>
-        <span class="leg-5">5 · Excelente</span>
-      </div>
-      <table class="criteria-table">
-        <thead>
-          <tr>
-            <th class="label-col">Criterio</th>
-            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="criteria-row">
-            <td>Beneficio para el desarrollo de su área</td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="1" data-val="1"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="2" data-val="2"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="3" data-val="3"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="4" data-val="4"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c1" value="5" data-val="5"></td>
-          </tr>
-          <tr class="criteria-row">
-            <td>Rapidez en el proceso de compra</td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="1" data-val="1"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="2" data-val="2"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="3" data-val="3"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="4" data-val="4"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c2" value="5" data-val="5"></td>
-          </tr>
-          <tr class="criteria-row">
-            <td>Tiempo de entrega del servicio / puntualidad</td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="1" data-val="1"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="2" data-val="2"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="3" data-val="3"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="4" data-val="4"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c3" value="5" data-val="5"></td>
-          </tr>
-          <tr class="criteria-row">
-            <td>Facilidad para comunicarse con el área de soporte</td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="1" data-val="1"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="2" data-val="2"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="3" data-val="3"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="4" data-val="4"></td>
-            <td class="star-cell"><input type="radio" class="radio-star" name="c4" value="5" data-val="5"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card">
-      <div class="card-label">Comentarios</div>
-      <div class="field" style="margin-bottom:1rem">
-        <label>Observaciones generales</label>
-        <textarea id="comentarios" placeholder="Puede dejar cualquier comentario adicional sobre el servicio recibido…"></textarea>
-      </div>
-      <div class="field">
-        <label>Para puntajes 1 o 2 — Exponga los motivos o aclaraciones que considere convenientes</label>
-        <textarea id="insatisfaccion" placeholder="Si marcó 1 o 2 en algún criterio, explique aquí los motivos…"></textarea>
-      </div>
-    </div>
-
-    <button class="btn-submit" id="btn-submit" onclick="submitForm()">Enviar encuesta →</button>
+  <!-- PANTALLA GRACIAS -->
+  <div class="thanks-screen" id="thanks-screen">
+    <div class="thanks-icon">✅</div>
+    <h2>¡Gracias por tu respuesta!</h2>
+    <p>Tu opinión ha sido registrada correctamente. Con tu colaboración seguimos mejorando la calidad de nuestro servicio de soporte.</p>
+    <button class="btn-nueva" onclick="nuevaRespuesta()">Enviar otra respuesta</button>
   </div>
 </div>
 
-<!-- RESULTADOS -->
+<!-- ═══ RESULTADOS ═══ -->
 <div id="view-results" class="view">
-  <div class="results-wrap">
+  <!-- PIN -->
+  <div class="pin-screen" id="pin-screen">
+    <h2>Acceso restringido</h2>
+    <p>Esta sección es solo para el equipo de Administración. Ingresa la clave para ver los resultados.</p>
+    <input type="password" class="pin-input" id="pin-input" placeholder="••••" maxlength="8"
+      onkeydown="if(event.key==='Enter') checkPin()">
+    <div class="pin-error" id="pin-error">Clave incorrecta. Inténtalo de nuevo.</div>
+    <button class="btn-pin" onclick="checkPin()">Ingresar</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="results-wrap" id="results-wrap">
     <div class="results-header">
-      <h2>Resultados de la encuesta</h2>
-      <button class="btn-export" onclick="loadResults()">↻ Actualizar</button>
+      <h2>Resultados · COM-FT-007</h2>
+      <div style="display:flex;gap:8px">
+        <button class="btn-export" onclick="loadResults()">↻ Actualizar</button>
+        <button class="btn-export" onclick="exportCSV()">⬇ Exportar CSV</button>
+      </div>
     </div>
     <div id="results-content">
-      <div class="empty-state"><div class="icon">📊</div><p>Haz clic en Actualizar para cargar los resultados.</p></div>
+      <div class="empty-state"><div class="spinner"></div><p>Cargando...</p></div>
     </div>
   </div>
 </div>
 
-<div class="loading-overlay" id="loading">
-  <div class="loading-box">
-    <div class="spinner"></div>
-    <p style="font-size:.9rem;color:var(--muted)">Enviando encuesta...</p>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
+<!-- iframe oculto para envío sin CORS -->
+<iframe name="hidden-frame" style="display:none"></iframe>
 
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfwwgRMUeemAbSVkpfMmiq0Bhj4KMT2sVbiRJgTX4bfqfd-iOt6Xmufc-lTzJllpt0/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfwwgRMUeemAbSVkpfMmiq0Bhj4KMT2sVbiRJgTX4bfqfd-iOt6Xmufc-lTzJIlpt0/exec';
+const PIN = 'admin2024';
 const CRITERIA = ['Beneficio para el desarrollo de su área','Rapidez en el proceso de compra','Tiempo de entrega / puntualidad','Facilidad de comunicación con soporte'];
 
 document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
 
-function showView(v, btn) {
+function showTab(v) {
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('view-' + v).classList.add('active');
-  if (btn) btn.classList.add('active');
-  if (v === 'results') loadResults();
+  document.getElementById('tab-' + v).classList.add('active');
 }
 
-function showToast(msg, type) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast ' + type + ' show';
-  setTimeout(() => t.className = 'toast', 4000);
+function checkPin() {
+  const val = document.getElementById('pin-input').value;
+  if (val === PIN) {
+    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('results-wrap').classList.add('show');
+    loadResults();
+  } else {
+    document.getElementById('pin-input').classList.add('error');
+    document.getElementById('pin-error').style.display = 'block';
+  }
 }
 
-async function submitForm() {
+function submitForm() {
   const area = document.getElementById('area').value;
   const fecha = document.getElementById('fecha').value;
   const persona = document.getElementById('persona').value.trim();
-
   let valid = true;
+
   ['area','fecha','persona'].forEach(id => {
     const el = document.getElementById(id);
     if (!el.value.trim()) { el.classList.add('error'); valid = false; }
@@ -333,12 +351,23 @@ async function submitForm() {
   const scores = {};
   for (let i = 1; i <= 4; i++) {
     const sel = document.querySelector(`input[name="c${i}"]:checked`);
-    if (!sel) { valid = false; showToast(`Por favor puntúe todos los criterios (falta criterio ${i})`, 'error'); return; }
+    if (!sel) {
+      alert(`Por favor puntúe todos los criterios (falta el criterio ${i}).`);
+      return;
+    }
     scores[`c${i}`] = parseInt(sel.value);
   }
-  if (!valid) { showToast('Complete los campos obligatorios marcados en rojo', 'error'); return; }
+  if (!valid) { alert('Por favor complete los campos obligatorios marcados.'); return; }
 
   const promedio = ((scores.c1+scores.c2+scores.c3+scores.c4)/4).toFixed(2);
+
+  // Crear formulario temporal que apunta al iframe oculto (evita CORS)
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = SCRIPT_URL;
+  form.target = 'hidden-frame';
+  form.style.display = 'none';
+
   const payload = {
     area, fecha, persona,
     cargo: document.getElementById('cargo').value.trim(),
@@ -348,81 +377,67 @@ async function submitForm() {
     insatisfaccion: document.getElementById('insatisfaccion').value.trim()
   };
 
-  document.getElementById('loading').classList.add('show');
-  document.getElementById('btn-submit').disabled = true;
+  // Apps Script con POST form necesita un campo "data" con JSON
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'data';
+  input.value = JSON.stringify(payload);
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
 
-  try {
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    document.getElementById('loading').classList.remove('show');
-    document.getElementById('btn-submit').disabled = false;
-    showToast('✓ Encuesta enviada correctamente', 'success');
-    // Reset
-    document.getElementById('area').value = '';
-    document.getElementById('persona').value = '';
-    document.getElementById('cargo').value = '';
-    document.getElementById('comentarios').value = '';
-    document.getElementById('insatisfaccion').value = '';
-    document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
-    document.querySelectorAll('.radio-star').forEach(r => r.checked = false);
-  } catch(err) {
-    document.getElementById('loading').classList.remove('show');
-    document.getElementById('btn-submit').disabled = false;
-    showToast('Error al enviar. Verifica tu conexión.', 'error');
-  }
+  // Mostrar pantalla de gracias inmediatamente
+  document.getElementById('form-content').style.display = 'none';
+  document.getElementById('thanks-screen').classList.add('show');
 }
 
-function scoreColor(s) {
-  if (s >= 4.5) return 'score-great';
-  if (s >= 3.5) return 'score-ok';
-  if (s >= 2.5) return 'score-mid';
-  return 'score-low';
-}
-function chipStyle(s) {
-  if (s >= 4.5) return 'background:#EDE9FE;color:#4C1D95';
-  if (s >= 3.5) return 'background:#DCFCE7;color:#166534';
-  if (s >= 2.5) return 'background:#E0F2FE;color:#075985';
-  return 'background:#FEF3C7;color:#92400E';
+function nuevaRespuesta() {
+  document.getElementById('form-content').style.display = 'block';
+  document.getElementById('thanks-screen').classList.remove('show');
+  document.getElementById('area').value = '';
+  document.getElementById('persona').value = '';
+  document.getElementById('cargo').value = '';
+  document.getElementById('comentarios').value = '';
+  document.getElementById('insatisfaccion').value = '';
+  document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('.radio-star').forEach(r => r.checked = false);
 }
 
 async function loadResults() {
-  document.getElementById('results-content').innerHTML = '<div class="empty-state"><div class="spinner" style="margin:2rem auto;width:36px;height:36px;border:3px solid #E2E8F0;border-top-color:#2E6BE6;border-radius:50%;animation:spin .8s linear infinite"></div><p>Cargando resultados desde Google Sheets...</p></div>';
+  document.getElementById('results-content').innerHTML = '<div class="empty-state"><div class="spinner"></div><p>Cargando resultados...</p></div>';
   try {
     const res = await fetch(SCRIPT_URL + '?action=get');
     const data = await res.json();
     if (!data.rows || data.rows.length === 0) {
-      document.getElementById('results-content').innerHTML = '<div class="empty-state"><div class="icon">📋</div><p>Aún no hay respuestas registradas.</p></div>';
+      document.getElementById('results-content').innerHTML = '<div class="empty-state"><p>Aún no hay respuestas registradas.</p></div>';
       return;
     }
     renderResults(data.rows);
+    window._resultRows = data.rows;
   } catch(err) {
-    document.getElementById('results-content').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No se pudieron cargar los resultados.<br>Verifica tu conexión e intenta nuevamente.</p></div>';
+    document.getElementById('results-content').innerHTML = '<div class="empty-state"><p>Error al cargar. Verifica tu conexión e intenta nuevamente.</p></div>';
   }
 }
 
+function scoreColor(s){if(s>=4.5)return 'score-great';if(s>=3.5)return 'score-ok';if(s>=2.5)return 'score-mid';return 'score-low';}
+function chipStyle(s){if(s>=4.5)return 'background:#EDE9FE;color:#4C1D95';if(s>=3.5)return 'background:#DCFCE7;color:#166534';if(s>=2.5)return 'background:#E0F2FE;color:#075985';return 'background:#FEF3C7;color:#92400E';}
+
 function renderResults(rows) {
   const total = rows.length;
-  const avgAll = rows.map(r => (parseFloat(r.C1_Beneficio)+parseFloat(r.C2_Rapidez)+parseFloat(r.C3_Puntualidad)+parseFloat(r.C4_Comunicacion))/4);
+  const getScores = r => [parseFloat(r.C1_Beneficio||0),parseFloat(r.C2_Rapidez||0),parseFloat(r.C3_Puntualidad||0),parseFloat(r.C4_Comunicacion||0)];
+  const avgAll = rows.map(r => getScores(r).reduce((a,b)=>a+b,0)/4);
   const globalAvg = (avgAll.reduce((a,b)=>a+b,0)/total).toFixed(2);
   const satPct = Math.round(avgAll.filter(v=>v>=3.5).length/total*100);
-  const cAvg = ['C1_Beneficio','C2_Rapidez','C3_Puntualidad','C4_Comunicacion'].map(k => {
-    const vals = rows.map(r=>parseFloat(r[k]));
-    return (vals.reduce((a,b)=>a+b,0)/vals.length);
-  });
-  const dist = {1:0,2:0,3:0,4:0,5:0};
-  rows.forEach(r => ['C1_Beneficio','C2_Rapidez','C3_Puntualidad','C4_Comunicacion'].forEach(k => dist[Math.round(parseFloat(r[k]))]++));
-  const totalScores = Object.values(dist).reduce((a,b)=>a+b,0);
-  const areaMap = {};
-  rows.forEach(r => {
-    if (!areaMap[r.Area]) areaMap[r.Area] = [];
-    areaMap[r.Area].push((parseFloat(r.C1_Beneficio)+parseFloat(r.C2_Rapidez)+parseFloat(r.C3_Puntualidad)+parseFloat(r.C4_Comunicacion))/4);
-  });
+  const keys = ['C1_Beneficio','C2_Rapidez','C3_Puntualidad','C4_Comunicacion'];
+  const cAvg = keys.map(k => { const v=rows.map(r=>parseFloat(r[k]||0)); return v.reduce((a,b)=>a+b,0)/v.length; });
+  const dist={1:0,2:0,3:0,4:0,5:0};
+  rows.forEach(r=>keys.forEach(k=>{ const v=Math.round(parseFloat(r[k]||0)); if(dist[v]!==undefined)dist[v]++; }));
+  const totalScores=Object.values(dist).reduce((a,b)=>a+b,0);
+  const areaMap={};
+  rows.forEach(r=>{ if(!areaMap[r.Area])areaMap[r.Area]=[]; areaMap[r.Area].push(getScores(r).reduce((a,b)=>a+b,0)/4); });
 
-  let html = `
+  document.getElementById('results-content').innerHTML = `
   <div class="kpi-grid">
     <div class="kpi"><div class="kpi-val">${total}</div><div class="kpi-label">Respuestas totales</div></div>
     <div class="kpi"><div class="kpi-val">${globalAvg}</div><div class="kpi-label">Puntaje promedio global</div></div>
@@ -443,7 +458,7 @@ function renderResults(rows) {
           const pct=totalScores>0?Math.round(dist[v]/totalScores*100):0;
           const labels={5:'Excelente',4:'Bueno',3:'Aceptable',2:'Regular',1:'Deficiente'};
           const colors={5:'#7C3AED',4:'#16A34A',3:'#3B82F6',2:'#D97706',1:'#DC2626'};
-          return `<div class="bar-row"><div class="bar-label">${v} · ${labels[v]}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[v]}">${pct>8?`<span>${pct}%</span>`:''}</div></div>${pct<=8?`<span style="font-size:.72rem;color:var(--muted)">${pct}%</span>`:''}</div>`;
+          return `<div class="bar-row"><div class="bar-label">${v}·${labels[v]}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[v]}">${pct>10?`<span>${pct}%</span>`:''}</div></div>${pct<=10?`<span style="font-size:.72rem;color:var(--muted)">${pct}%</span>`:''}</div>`;
         }).join('')}
       </div>
     </div>
@@ -454,7 +469,7 @@ function renderResults(rows) {
           const avg=vals.reduce((a,b)=>a+b,0)/vals.length;
           const pct=Math.round(avg/5*100);
           const color=avg>=4.5?'#7C3AED':avg>=3.5?'#16A34A':avg>=2.5?'#3B82F6':'#D97706';
-          return `<div class="bar-row"><div class="bar-label">${area} (${vals.length})</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color}">${pct>12?`<span>${avg.toFixed(1)}</span>`:''}</div></div>${pct<=12?`<span style="font-size:.72rem;color:var(--muted)">${avg.toFixed(1)}</span>`:''}</div>`;
+          return `<div class="bar-row"><div class="bar-label">${area}(${vals.length})</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color}">${pct>12?`<span>${avg.toFixed(1)}</span>`:''}</div></div>${pct<=12?`<span style="font-size:.72rem;color:var(--muted)">${avg.toFixed(1)}</span>`:''}</div>`;
         }).join('')}
       </div>
     </div>
@@ -463,17 +478,15 @@ function renderResults(rows) {
     <h3>Detalle de respuestas (${total})</h3>
     <div style="overflow-x:auto">
     <table class="resp-table">
-      <thead><tr><th>Fecha</th><th>Área</th><th>Persona / Cargo</th><th>Beneficio</th><th>Rapidez</th><th>Puntualidad</th><th>Comunicación</th><th>Promedio</th></tr></thead>
+      <thead><tr><th>Fecha</th><th>Área</th><th>Persona/Cargo</th><th>Beneficio</th><th>Rapidez</th><th>Puntualidad</th><th>Comunicación</th><th>Promedio</th></tr></thead>
       <tbody>
         ${rows.slice().reverse().map(r=>{
-          const avg=((parseFloat(r.C1_Beneficio)+parseFloat(r.C2_Rapidez)+parseFloat(r.C3_Puntualidad)+parseFloat(r.C4_Comunicacion))/4).toFixed(1);
+          const sc=getScores(r);
+          const avg=(sc.reduce((a,b)=>a+b,0)/4).toFixed(1);
           return `<tr>
-            <td>${r.Fecha}</td><td>${r.Area}</td>
+            <td>${r.Fecha||''}</td><td>${r.Area||''}</td>
             <td>${r.Persona||'—'}${r.Cargo?'<br><span style="color:var(--muted);font-size:.72rem">'+r.Cargo+'</span>':''}</td>
-            <td style="text-align:center"><span class="chip" style="${chipStyle(parseFloat(r.C1_Beneficio))}">${r.C1_Beneficio}</span></td>
-            <td style="text-align:center"><span class="chip" style="${chipStyle(parseFloat(r.C2_Rapidez))}">${r.C2_Rapidez}</span></td>
-            <td style="text-align:center"><span class="chip" style="${chipStyle(parseFloat(r.C3_Puntualidad))}">${r.C3_Puntualidad}</span></td>
-            <td style="text-align:center"><span class="chip" style="${chipStyle(parseFloat(r.C4_Comunicacion))}">${r.C4_Comunicacion}</span></td>
+            ${sc.map(v=>`<td style="text-align:center"><span class="chip" style="${chipStyle(v)}">${v}</span></td>`).join('')}
             <td style="text-align:center"><strong>${avg}</strong></td>
           </tr>`;
         }).join('')}
@@ -481,7 +494,17 @@ function renderResults(rows) {
     </table>
     </div>
   </div>`;
-  document.getElementById('results-content').innerHTML = html;
+}
+
+function exportCSV() {
+  const rows = window._resultRows;
+  if (!rows || !rows.length) { alert('No hay datos para exportar.'); return; }
+  const headers = ['Timestamp','Area','Fecha','Persona','Cargo','C1_Beneficio','C2_Rapidez','C3_Puntualidad','C4_Comunicacion','Promedio','Comentarios','Motivos_Insatisfaccion'];
+  const csv = [headers.join(','), ...rows.map(r => headers.map(h => `"${(r[h]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+  a.download = `COM-FT-007_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
 }
 </script>
 </body>
